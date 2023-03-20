@@ -1,0 +1,53 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.4'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'java'
+}
+
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+repositories {
+    mavenCentral()
+}
+
+wrapper {
+    gradleVersion = '7.5.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    annotationProcessor "org.projectlombok:lombok"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // We have 2 different Redis driver dependencies as Lab contain optional part with Lettuce
+//    implementation 'redis.clients:jedis:4.2.3'
+//    implementation 'io.lettuce:lettuce-core:6.2.0.RELEASE'
+    implementation group: 'com.giffing.bucket4j.spring.boot.starter', name: 'bucket4j-spring-boot-starter', version: '0.9.0'
+//    implementation group: 'com.github.vladimir-bukhtoyarov', name: 'bucket4j-redis', version: '7.6.0'
+    implementation group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.20.0'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.4'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.4'
+    implementation group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.20.0'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.26'
+
+
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '3.0.4'
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.0.4'
+
+
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // https://mvnrepository.com/artifact/org.testcontainers/testcontainers
+    testImplementation 'org.testcontainers:testcontainers:1.17.3'
+    testImplementation "org.testcontainers:junit-jupiter:1.17.3"
+
+
+}
+sourceCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_1_9
