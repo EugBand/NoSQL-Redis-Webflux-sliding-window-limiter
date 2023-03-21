@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/ratelimit/fixedwindow")
+@RequestMapping("/api/v1/ratelimit/slidingwindow")
 public class SlidingWindowRateLimitController {
 
     @Autowired
