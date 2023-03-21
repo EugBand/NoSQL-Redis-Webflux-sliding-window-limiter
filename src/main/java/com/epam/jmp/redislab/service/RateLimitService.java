@@ -6,10 +6,12 @@ import com.epam.jmp.redislab.configuration.ratelimit.RateLimitTimeInterval;
 
 import java.util.Set;
 
+import reactor.core.publisher.Mono;
+
 public interface RateLimitService {
 
-    default boolean shouldLimit(Set<RequestDescriptor> requestDescriptors) {
-        return false;
+    default Mono<Boolean> shouldLimit(Set<RequestDescriptor> requestDescriptors) {
+        return Mono.just(false);
     }
 
     default int getDuration(RateLimitRule rule) {

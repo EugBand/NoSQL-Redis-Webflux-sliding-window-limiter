@@ -23,13 +23,13 @@ test {
 dependencies {
     annotationProcessor "org.projectlombok:lombok"
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    // We have 2 different Redis driver dependencies as Lab contain optional part with Lettuce
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.7.4'
 //    implementation 'redis.clients:jedis:4.2.3'
 //    implementation 'io.lettuce:lettuce-core:6.2.0.RELEASE'
     implementation group: 'com.giffing.bucket4j.spring.boot.starter', name: 'bucket4j-spring-boot-starter', version: '0.9.0'
-//    implementation group: 'com.github.vladimir-bukhtoyarov', name: 'bucket4j-redis', version: '7.6.0'
+    implementation group: 'com.github.vladimir-bukhtoyarov', name: 'bucket4j-redis', version: '7.6.0'
+//    compileOnly group: 'com.github.vladimir-bukhtoyarov', name: 'bucket4j-ignite', version: '7.6.0'
     implementation group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.20.0'
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.4'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.4'
     implementation group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.20.0'

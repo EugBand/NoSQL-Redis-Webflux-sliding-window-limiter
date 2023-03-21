@@ -14,6 +14,7 @@ import com.epam.jmp.redislab.configuration.ratelimit.RateLimitRule;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Component("concurrentmap")
@@ -27,7 +28,7 @@ public class ConcurrentMapRateLimitService implements RateLimitService {
     RateLimitRule defaultRule;
 
     @Override
-    public boolean shouldLimit(Set<RequestDescriptor> requestDescriptors) {
+    public Mono<Boolean> shouldLimit(Set<RequestDescriptor> requestDescriptors) {
         boolean isLimited = false;
         for (RequestDescriptor descriptor : requestDescriptors) {
             RateLimitRule rule = getAccount(descriptor);
@@ -57,7 +58,7 @@ public class ConcurrentMapRateLimitService implements RateLimitService {
                 windows.get(curWindowKey).decrementAndGet();
             }
         }
-        return isLimited;
+        return Mono.just(isLimited);
     }
 
     private RateLimitRule getAccount(RequestDescriptor descriptor) {

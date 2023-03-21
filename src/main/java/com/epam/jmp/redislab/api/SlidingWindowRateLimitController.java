@@ -1,7 +1,6 @@
 package com.epam.jmp.redislab.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.epam.jmp.redislab.service.RateLimitService;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,12 +23,10 @@ public class SlidingWindowRateLimitController {
     private final RateLimitService rateLimitService;
 
     @PostMapping
-    public ResponseEntity<Void> shouldRateLimit(
+    public Mono<ResponseEntity<Void>> shouldRateLimit(
             @RequestBody
             RateLimitRequest rateLimitRequest) {
-        if (rateLimitService.shouldLimit(rateLimitRequest.getDescriptors())) {
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
-        }
-        return ResponseEntity.ok().build();
+        return rateLimitService.shouldLimit(rateLimitRequest.getDescriptors())
+            .map(r -> r ? (ResponseEntity.ok()).build() : ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build());
     }
 }
